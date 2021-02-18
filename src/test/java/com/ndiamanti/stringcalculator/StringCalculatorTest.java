@@ -29,4 +29,10 @@ class StringCalculatorTest {
         Integer value = stringCalculator.add("10,2");
         assertEquals(12, value);
     }
+
+    @Test
+    public void add_shouldAddInputWithNewline() {
+        Integer value = stringCalculator.add("10\n2");
+        assertEquals(12, value);
+    }
 }
