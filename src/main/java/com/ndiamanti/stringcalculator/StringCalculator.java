@@ -5,6 +5,6 @@ public class StringCalculator {
     public Integer add(String str) {
         if (str.isEmpty())
             return 0;
-        else return null;
+        else return Integer.valueOf(str);
     }
 }
