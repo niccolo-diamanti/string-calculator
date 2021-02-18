@@ -35,4 +35,10 @@ class StringCalculatorTest {
         Integer value = stringCalculator.add("10\n2");
         assertEquals(12, value);
     }
+
+    @Test
+    public void add_shouldAddInputWithNewlineAndComma() {
+        Integer value = stringCalculator.add("1\n2,3\n4");
+        assertEquals(10, value);
+    }
 }
