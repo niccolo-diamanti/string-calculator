@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest
 class StringCalculatorTest {
 
-    StringCalculator stringCalculator = new StringCalculator();
+    StringCalculatorImpl stringCalculator = new StringCalculatorImpl();
 
     @Test
     public void add_shouldReturnZeroIfEmptyString() {
@@ -45,7 +45,13 @@ class StringCalculatorTest {
 
     @Test
     public void add_shouldThrowNegativeNumbersException() {
-        Throwable exception = assertThrows(StringCalculator.NegativeNumbersException.class, () -> stringCalculator.add("-1,2,-3"));
+        Throwable exception = assertThrows(StringCalculatorImpl.NegativeNumbersException.class, () -> stringCalculator.add("-1,2,-3"));
         assertEquals("Negatives not allowed: -1,-3", exception.getMessage());
+    }
+
+    @Test
+    public void add_shouldIgnoreNumbersGt1000() {
+        Integer value = stringCalculator.add("1\n2,3\n4,1001");
+        assertEquals(10, value);
     }
 }
