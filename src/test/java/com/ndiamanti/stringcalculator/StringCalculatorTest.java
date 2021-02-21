@@ -54,4 +54,10 @@ class StringCalculatorTest {
         Integer value = stringCalculator.add("1\n2,3\n4,1001");
         assertEquals(10, value);
     }
+
+    @Test
+    public void add_shouldRecognizeDelimiter() {
+        Integer value = stringCalculator.add("//#\n1#2#3");
+        assertEquals(6, value);
+    }
 }

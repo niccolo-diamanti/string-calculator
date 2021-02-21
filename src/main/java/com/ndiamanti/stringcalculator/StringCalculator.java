@@ -2,8 +2,9 @@ package com.ndiamanti.stringcalculator;
 
 public interface StringCalculator {
 
-    String DEFAULT_DELIMITER = ",";
     Integer MAX_NUMBER_ALLOWED = 1000;
+    String DELIMITER_REGEX = "^//(.*)\\n";
+    String DYNAMIC_DELIMITER_PREFIX = "//";
 
     Integer add(String numbers);
 }
