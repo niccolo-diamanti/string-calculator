@@ -18,6 +18,12 @@ class StringCalculatorTest {
     }
 
     @Test
+    public void add_shouldReturnZeroIfNullString() {
+        Integer value = stringCalculator.add(null);
+        assertEquals(value, 0);
+    }
+
+    @Test
     public void add_shouldReturnGivenNumber() {
         Integer value1 = stringCalculator.add("1");
         Integer value2 = stringCalculator.add("2");
@@ -45,8 +51,17 @@ class StringCalculatorTest {
 
     @Test
     public void add_shouldThrowNegativeNumbersException() {
-        Throwable exception = assertThrows(StringCalculatorImpl.NegativeNumbersException.class, () -> stringCalculator.add("-1,2,-3"));
+        String try1 = "-1,2,-3";
+        Throwable exception = assertThrows(StringCalculatorImpl.NegativeNumbersException.class, () -> stringCalculator.add(try1));
         assertEquals("Negatives not allowed: -1,-3", exception.getMessage());
+
+        String try2 = "//#\n1#2#-3";
+        exception = assertThrows(StringCalculatorImpl.NegativeNumbersException.class, () -> stringCalculator.add(try2));
+        assertEquals("Negatives not allowed: -3", exception.getMessage());
+
+        String try3 = "//#$#\n1#$#-2";
+        exception = assertThrows(StringCalculatorImpl.NegativeNumbersException.class, () -> stringCalculator.add(try3));
+        assertEquals("Negatives not allowed: -2", exception.getMessage());
     }
 
     @Test
@@ -59,5 +74,11 @@ class StringCalculatorTest {
     public void add_shouldRecognizeDelimiter() {
         Integer value = stringCalculator.add("//#\n1#2#3");
         assertEquals(6, value);
+    }
+
+    @Test
+    public void add_shouldRecognizeMultipleCharDelimiter() {
+        Integer value = stringCalculator.add("//#$#\n1#$#2");
+        assertEquals(3, value);
     }
 }

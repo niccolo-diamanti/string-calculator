@@ -13,10 +13,9 @@ public class StringCalculatorImpl implements StringCalculator {
 
     @Override
     public Integer add(String numbers) {
-        if (numbers.isEmpty())
+        if (numbers == null || numbers.isEmpty())
             return 0;
         else {
-
             if (numbers.startsWith(DYNAMIC_DELIMITER_PREFIX)) {
                 recognizeNumbersDelimiter(numbers);
                 numbers = numbers.replaceFirst(DELIMITER_REGEX, "");
@@ -45,11 +44,11 @@ public class StringCalculatorImpl implements StringCalculator {
     private String joinNumbersByDelimiter(List<Integer> numbers) {
         return numbers.stream()
                 .map(String::valueOf)
-                .collect(Collectors.joining(DELIMITER));
+                .collect(Collectors.joining(DEFAULT_DELIMITER));
     }
 
     private Map<Boolean, List<Integer>> splitNegativeAndPositiveNumbers(String numbers) {
-        return Arrays.stream(numbers.replaceAll("\n", DELIMITER).split(DELIMITER))
+        return Arrays.stream(numbers.replaceAll("\n", DELIMITER).split(Pattern.quote(DELIMITER)))
                 .map(Integer::valueOf)
                 .filter(i -> i <= MAX_NUMBER_ALLOWED)
                 .collect(Collectors.partitioningBy(i -> i < 0));
